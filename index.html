@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VueBar</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<style>
+
+
+</style>
+<body>
+x:{{value.x}}<br/>
+y:{{value.y}}<br/>
+percentX:{{value.percentX}}<br/>
+percentY:{{value.percentY}}<br/>
+
+<vue-bar @start="onStart" @update="onUpdate" @end="onEnd" style="background: #eff1f5" :value.sync="value" :scale="1" :bound="{maxX:250}">
+    <div slot="bar" style="background: #000;color: #fff;width:100px;height: 100px;border: 1px solid #ff0000">
+    </div>
+</vue-bar>
+<script src="dist/vue.min.js"></script>
+<script src="dist/smart.min.js"></script>
+<script src="dist/vue-bar.js"></script>
+
+<script>
+
+    Smart.Css.smartCss(document.querySelector('body'), {scale: '1'});
+    // Smart.Css.smartCss(document.querySelector('.blur'),{filter:'blur(10px);',width:'100%'});
+    new Vue({
+        el: 'body',
+        components: {
+            VueBar: VueBar
+        },
+        data: {
+            playing: true,
+            page: 1, show: false, movies: [{current: 0.5}],value:{x:30,y:0,percentX:0,percentY:0}
+        },
+        methods: {
+
+            onStart: function (mc) {
+                console.log('onStart')
+            },
+            onUpdate: function (mc) {
+                console.log('onUpdate')
+            },
+            onEnd: function (mc) {
+                console.log('onEnd')
+                if(this.value.x>150){
+                    this.value.x=250;
+                }
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>
